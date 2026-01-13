@@ -1,0 +1,34 @@
+﻿using System;
+using System.Data.OleDb;
+using Model;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ViewModel
+{
+    public class CityDB : BaseDB
+    {
+
+        public CityList SelectAll()
+        {
+            command.CommandText = $"SELECT * FROM CityTbl";
+            CityList groupList = new CityList(base.Select());
+            return groupList;
+        }
+        protected override BaseEntity CreateModel(BaseEntity entity)
+        {
+            City ct = entity as City;
+            ct.CityName = reader["cityName"].ToString();
+            base.CreateModel(entity);
+            return ct;
+        }
+        public override BaseEntity NewEntity()
+        {
+            return new City();
+
+
+        }
+    }
+}
