@@ -13,14 +13,14 @@ namespace ViewModel
 
         public CityList SelectAll()
         {
-            command.CommandText = $"SELECT * FROM CityTbl";
+            command.CommandText = $"SELECT * FROM City";
             CityList groupList = new CityList(base.Select());
             return groupList;
         }
         protected override BaseEntity CreateModel(BaseEntity entity)
         {
             City ct = entity as City;
-            ct.CityName = reader["cityName"].ToString();
+            ct.CityName = reader["Name"].ToString();
             base.CreateModel(entity);
             return ct;
         }
