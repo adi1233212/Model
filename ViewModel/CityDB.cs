@@ -25,10 +25,19 @@ namespace ViewModel
             return ct;
         }
         public override BaseEntity NewEntity()
-        {
+        {   
             return new City();
 
 
         }
+        private static CityList list = new CityList();
+        public static City SelectById(int id)
+        {
+            CityDB db = new CityDB();
+            list = db.SelectAll();
+            City g = list.Find(item => item.Id == id);
+            return g;
+        }
+
     }
 }
