@@ -12,6 +12,6 @@ namespace Model
         private Teacher teach;
 
         public Teacher Teach { get => teach; set => teach = value; }
-        internal Student Stu { get => stu; set => stu = value; }
+        public Student Stu { get => stu; set => stu = value; }
     }
 }

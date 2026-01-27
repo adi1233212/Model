@@ -20,8 +20,8 @@ namespace ViewModel
         protected override BaseEntity CreateModel(BaseEntity entity)
         {
             TeacherForStudent ts = entity as TeacherForStudent;
-            ts.Teach = int.Parse(reader["IdTeacher"].ToString());
-            ts. = DateTime.Parse(reader["StartWorkingDate"].ToString());
+            ts.Teach = TeacherDB.SelectById(int.Parse(reader["IdTeacher"].ToString()));
+            ts.Stu = StudentDB.SelectById(int.Parse(reader["IdStudent"].ToString()));
 
             base.CreateModel(entity);
             return ts;

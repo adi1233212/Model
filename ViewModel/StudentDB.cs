@@ -35,7 +35,7 @@ namespace ViewModel
 
         private static StudentList list = new StudentList();
 
-        public static Person SelectById(int id)
+        public static Student SelectById(int id)
         {
             StudentDB db = new StudentDB();
             list = db.SelectAll();
