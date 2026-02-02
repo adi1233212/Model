@@ -12,9 +12,13 @@ namespace Test
             CityList cList = cdb.SelectAll();
             foreach(City c in cList)
                 Console.WriteLine(c.CityName);
+            City cityToUpdate = cList[0];
+            cityToUpdate.CityName += "xxx";
+            cdb.Update(cityToUpdate);
+            int x = cdb.SaveChanges();
+            Console.WriteLine($"{x} rows were updated");
 
             Console.WriteLine("------PersonDB-----");
-
             PersonDB personDB = new ();
             PersonList pList = personDB.SelectAll();
             foreach (Person p in pList)
