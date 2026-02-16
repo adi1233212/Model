@@ -1,10 +1,11 @@
 ﻿using Model;
-using ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewModel;
 
 namespace ViewModel
 {
@@ -43,8 +44,28 @@ namespace ViewModel
             Student g = list.Find(item => item.Id == id);
             return g;
         }
+        protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
+        {
+            throw new NotImplementedException();
+        }
 
+        protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
+        {
+            throw new NotImplementedException();
+        }
 
+        protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
+        {
+            Student s = entity as Student;
+            if (s != null)
+            {
+                string sqlStr = $"UPDATE Student SET Tel=@tel WHERE ID=@id";
 
+                command.CommandText = sqlStr;
+                cmd.Parameters.Add(new OleDbParameter("@tel", s.Tel));
+                cmd.Parameters.Add(new OleDbParameter("@id", s.Id));
+            }
+        }
     }
 }
+

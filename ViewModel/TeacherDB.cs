@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Data.OleDb;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -45,8 +46,28 @@ namespace ViewModel
             Teacher g = list.Find(item => item.Id == id);
             return g;
         }
+        protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
+        {
+            throw new NotImplementedException();
+        }
 
+        protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
+        {
+            throw new NotImplementedException();
+        }
 
+        protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
+        {
+            Teacher t = entity as Teacher;
+            if (t != null)
+            {
+                string sqlStr = $"UPDATE Teacher SET IsEducator=@isE , StartWorkingDate =@sDate WHERE ID=@id";
 
+                command.CommandText = sqlStr;
+                cmd.Parameters.Add(new OleDbParameter("@isE", t.IsEducator));
+                cmd.Parameters.Add(new OleDbParameter("@id", t.StartWorkingDate));
+            }
+        }
     }
 }
+

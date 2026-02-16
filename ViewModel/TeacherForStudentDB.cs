@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.OleDb;
 
 namespace ViewModel
 {
@@ -43,8 +44,28 @@ namespace ViewModel
             return g;
         }
 
+        protected override void CreateDeletedSQL(BaseEntity entity, OleDbCommand cmd)
+        {
+            throw new NotImplementedException();
+        }
 
+        protected override void CreateInsertdSQL(BaseEntity entity, OleDbCommand cmd)
+        {
+            throw new NotImplementedException();
+        }
 
+        protected override void CreateUpdatedSQL(BaseEntity entity, OleDbCommand cmd)
+        {
+            TeacherForStudent tfs = entity as TeacherForStudent;
+            if (tfs != null)
+            {
+                string sqlStr = $"UPDATE TeacherForStudent SET IdTeacher =@idT , IdStudent =@idS WHERE ID=@id";
+
+                command.CommandText = sqlStr;
+                cmd.Parameters.Add(new OleDbParameter("@idT", tfs.Teach.Id));
+                cmd.Parameters.Add(new OleDbParameter("@idS", tfs.Stu.Id));
+            }
+        }
     }
 }
 
